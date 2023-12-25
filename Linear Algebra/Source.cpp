@@ -18,94 +18,17 @@ public:
 	void fill_matrix_rand();
 
 	//default and non default csonstructors
-	Matrix(int _m = 0, int _n = 0) {
-		m = _m;
-		n = _n;
-		matrix = new double* [m];
-		for (int i = 0; i < m; i++) {
-			matrix[i] = new double[n];
-		}
-	}
+	Matrix(int _m, int _n);
 	//copy constructor
-	Matrix(const Matrix& rhs) {
-		m = rhs.m;
-		n = rhs.n;
-		matrix = new double* [m];
-
-		for (int i = 0; i < m; i++) {
-			matrix[i] = new double[n];
-		}
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				matrix[i][j] = rhs.matrix[i][j];
-			}
-		}
-	}
+	Matrix(const Matrix& rhs);
 	//destructor
-	~Matrix() {
-		for (int i = 0; i < m; i++) {
-			delete[] matrix[i];
-		}
-		delete[] matrix;
-	}
+	~Matrix();
 	//copy assignment operator
-	Matrix& operator=(const Matrix& rhs) {
-
-		//check for self assignment
-		if (this == &rhs) {
-			return *this;
-		}
-		//destroy and reconstruct if needed
-		if (m != rhs.m || n != rhs.n) {
-
-			for (int i = 0; i < m; i++) {
-				delete[] matrix[i];
-			}
-			delete[] matrix;
-
-			m = rhs.m;
-			n = rhs.n;
-			matrix = new double* [m];
-			for (int i = 0; i < m; i++) {
-				matrix[i] = new double[n];
-			}
-		}
-		//deep copy
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				matrix[i][j] = rhs.matrix[i][j];
-			}
-		}
-		return *this;
-	}
+	Matrix& operator=(const Matrix& rhs);
 	//move constructor
-	Matrix( Matrix&& rhs) noexcept: m(rhs.m), n(rhs.n), matrix(rhs.matrix) {
-		rhs.m = 0;
-		rhs.n = 0;
-		rhs.matrix = nullptr;
-	}
+	Matrix(Matrix&& rhs) noexcept;
 	//move assignment operator
-	Matrix& operator=( Matrix&& rhs) {
-
-		if (this != &rhs) {
-
-			for (int i = 0; i < m; i++) {
-				delete[] matrix[i];
-			}
-			delete[] matrix;
-
-			m = rhs.m;
-			n = rhs.n;
-			matrix = rhs.matrix;
-
-			rhs.m = 0;
-			rhs.n = 0;
-			rhs.matrix = nullptr;
-		}
-
-		return *this;
-
-	}
+	Matrix& operator=(Matrix&& rhs);
 
 	//printing
 	friend ostream& operator<<(ostream& outs, const Matrix& obj);
@@ -171,6 +94,96 @@ protected:
 	int m, n;
 	double** matrix ;
 };
+
+//default and non default constructors
+Matrix::Matrix(int _m = 0, int _n = 0) {
+	m = _m;
+	n = _n;
+	matrix = new double* [m];
+	for (int i = 0; i < m; i++) {
+		matrix[i] = new double[n];
+	}
+}
+//copy constructor
+Matrix::Matrix(const Matrix& rhs) {
+	m = rhs.m;
+	n = rhs.n;
+	matrix = new double* [m];
+
+	for (int i = 0; i < m; i++) {
+		matrix[i] = new double[n];
+	}
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			matrix[i][j] = rhs.matrix[i][j];
+		}
+	}
+}
+//destructor
+Matrix::~Matrix() {
+	for (int i = 0; i < m; i++) {
+		delete[] matrix[i];
+	}
+	delete[] matrix;
+}
+//copy assignment operator
+Matrix& Matrix::operator=(const Matrix& rhs) {
+
+	//check for self assignment
+	if (this == &rhs) {
+		return *this;
+	}
+	//destroy and reconstruct if needed
+	if (m != rhs.m || n != rhs.n) {
+
+		for (int i = 0; i < m; i++) {
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+
+		m = rhs.m;
+		n = rhs.n;
+		matrix = new double* [m];
+		for (int i = 0; i < m; i++) {
+			matrix[i] = new double[n];
+		}
+	}
+	//deep copy
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			matrix[i][j] = rhs.matrix[i][j];
+		}
+	}
+	return *this;
+}
+//move constructor
+Matrix::Matrix(Matrix&& rhs) noexcept : m(rhs.m), n(rhs.n), matrix(rhs.matrix) {
+	rhs.m = 0;
+	rhs.n = 0;
+	rhs.matrix = nullptr;
+}
+//move assignment operator
+Matrix& Matrix::operator=(Matrix&& rhs) {
+
+	if (this != &rhs) {
+
+		for (int i = 0; i < m; i++) {
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+
+		m = rhs.m;
+		n = rhs.n;
+		matrix = rhs.matrix;
+
+		rhs.m = 0;
+		rhs.n = 0;
+		rhs.matrix = nullptr;
+	}
+
+	return *this;
+
+}
 
 //filling in
 void Matrix::fill_matrix() {

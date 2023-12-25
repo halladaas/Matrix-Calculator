@@ -1,3 +1,3 @@
 ﻿  Source.cpp
-\\Mac\Home\Desktop\My Projects\Linear Algebra\Linear Algebra\Source.cpp(579,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+\\Mac\Home\Desktop\My Projects\Linear Algebra\Linear Algebra\Source.cpp(592,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Linear Algebra.vcxproj -> \\Mac\Home\Desktop\My Projects\Linear Algebra\arm64\Debug\Linear Algebra.exe
